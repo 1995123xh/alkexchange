@@ -4,8 +4,7 @@
 close all
 clear all
 
-load("eps_for_natural.mat")
-
+load("all_betas.mat")
 molecules = readtable('MolDescriptors_metal.xlsx', 'Range','E2:K28');
 radicals = readtable('MolDescriptors_metal.xlsx','Range','M2:Q18');
 %kmatrix=xlsread('MolDescriptors_metal.xlsx',2,'C4:M7');
