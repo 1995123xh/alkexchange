@@ -1,7 +1,9 @@
 function dcdt_metal = dcdt_metal(t,c, Mbalance, rList, EIE, sf,k, Temp)
-%DCDT Summary of this function goes here
-%   Detailed explanation goes here
-BDE=[100.7 98.2 95.7]*4.18; % bond dissociation energies, primary, secondary and tertiary, in kJ/mol
+% function for calculating the time-derivative of concentration for each
+% isotopomer in the alkexchange model
+
+% bond dissociation energies, primary, secondary and tertiary, in kJ/mol
+BDE=[100.7 98.2 95.7]*4.18; 
 BDE_methane=105*4.18;
 DBDE=BDE-BDE_methane;
 r=zeros(length(Mbalance),1);  %reaction rates
@@ -12,7 +14,8 @@ for i=1:length(r)
     if deg~=0
         BDEfactor=exp(-sf*DBDE(deg)*1000/8.314/Temp);
         if rList(2, i) == 29 % ethane related reactions
-            BDEfactor=BDEfactor*exp(sf*-6.4*1000/8.314/Temp); % ethane C-H bonds are stronger; see Gribov 2003
+            % Higher BDE for methane based on Gribov 2003
+            BDEfactor=BDEfactor*exp(sf*-6.4*1000/8.314/Temp); 
         end
     else
         BDEfactor=1;

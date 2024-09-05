@@ -15,11 +15,12 @@ Habstract_deg = xlsread('MolDescriptors_metal.xlsx',1,'V3:V17');
 Dabstract = xlsread('MolDescriptors_metal.xlsx',1,'Y3:Z17');
 Dabstract_deg = xlsread('MolDescriptors_metal.xlsx',1,'AA3:AA17');
 
-
-EIE=molecules.beta_100; % 200c data
+% EIE at 100c
+EIE=molecules.beta_100; 
 allSpecies=height(molecules)+height(radicals)+2;  %add last two: metal H and metal D
 
-diagM=zeros(allSpecies,allSpecies);  %diagnal n*n matrix for making reaction balance
+% diagnal n*n matrix for making reaction balance
+diagM=zeros(allSpecies,allSpecies);  
 for i=1:allSpecies
     diagM(i,i)=1;
 end
@@ -29,7 +30,9 @@ Dabstract(:,2)=Dabstract(:,2)+height(molecules);
 
 r=[];
 n=1;
-Mabsbalance=zeros(allSpecies, length(Habstract)*2+length(Dabstract)*2); % row: species column:reaction
+
+% row: species column:reaction
+Mabsbalance=zeros(allSpecies, length(Habstract)*2+length(Dabstract)*2); 
 reactantsList=zeros(4,length(Habstract)*2+length(Dabstract)*2);
 for abst=1:length(Habstract)     %H-abstraction reaction
             Mabsbalance(:, n)=-diagM(:,Habstract(abst,1))+diagM(:,Habstract(abst,2))+diagM(:,allSpecies-1);
@@ -191,6 +194,7 @@ yLabels = {'C2', 'C3', '{\it i}C4', '{\it i}C5'};
 
 % indices for ploting gom data
 columnPairs_gom = [11, 12; 12, 13; 15, 14; 17, 16];
+
 % Loop through each subplot
 for i = 1:4
     subplot(2, 2, i);
@@ -211,5 +215,4 @@ for i = 1:4
     ax.LineWidth = 1;
     ax.XLim = xlims_backup;
     ax.YLim = ylims_backup;
-    % scatter(julia_and_genesis{:, columnPairs_gom(i, 1)}, julia_and_genesis{:, columnPairs_gom(i, 2)},  'LineWidth', 1.2)
 end
